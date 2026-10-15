@@ -27,7 +27,14 @@ async function getReleaseStatus(options: ReleaseStatusOptions): Promise<ReleaseS
 
   try {
     const response = await fetch(resourceURL);
-    const releaseId = await response.text();
+    if (!response.ok) {
+      throw new Error(`Unexpected response status ${response.status}`);
+    }
+    const releaseId = (await response.text()).trim();
+    // A missing release file often falls back to the app's index.html with a 200 status.
+    if (releaseId.startsWith('<')) {
+      throw new Error('Release file returned HTML instead of a release ID');
+    }
     const releaseIdFromStorage = localStorage.getItem(storageKey);
     if (releaseId !== releaseIdFromStorage) {
       localStorage.setItem(storageKey, releaseId);
@@ -40,8 +47,8 @@ async function getReleaseStatus(options: ReleaseStatusOptions): Promise<ReleaseS
     logger('log', 'No new release detected.');
     lastStatus = 'no-release';
     return lastStatus;
-  } catch {
-    logger('error', 'An error occurred while verifying release id');
+  } catch (error) {
+    logger('error', 'An error occurred while verifying release id', error);
     lastStatus = 'error';
     return lastStatus;
   }

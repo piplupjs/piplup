@@ -71,13 +71,14 @@ export default App;
 
 - `enabled` (optional): Boolean indicating whether the cache busting functionality should be enabled. Default is `true`.
 - `loading` (optional): React node to be displayed while checking for updates. Default is `null`.
+- `error` (optional): React node to be displayed when the release check fails, for example when the device is offline, the `RELEASE` file is missing (non-2xx response), or the server returns an HTML page instead of a release ID. Default is `undefined`, which renders nothing. If you wrap your app in `CacheBuster`, pass the same content (or a fallback UI) to `error` so the app still renders when the check fails.
 - `verbose` (optional): Boolean indicating whether verbose logging should be enabled. Default is `false`.
 - `storageKey` (optional): local storage key for storing the unique release ID. Default is `RELEASE`
 - `children` (optional): The child components to render within the cache buster.
 
 ## How It Works
 
-`CacheBuster` fetches a release ID from the public folder using a predefined file name. It then compares this ID with the one stored in the browser's local storage. If a new release is detected, it reloads the page. Otherwise, it proceeds to render the child components.
+`CacheBuster` fetches a release ID from `/RELEASE` at the root of your site (the file generated in your public folder). It then compares this ID with the one stored in the browser's local storage. If a new release is detected, it reloads the page. Otherwise, it proceeds to render the child components.
 
 ## Contributing
 
