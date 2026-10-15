@@ -12,7 +12,7 @@ const generateReleaseId = async () => {
   const publicDirIndex = args.findIndex(arg => arg.startsWith('--publicDir='));
 
   if (publicDirIndex === -1) {
-    throw new Error('Public directory path not provided. Please add --pubicDir=<public_directory_path> to the script.');
+    throw new Error('Public directory path not provided. Please add --publicDir=<public_directory_path> to the script.');
   }
 
   const publicDir = args[publicDirIndex].split('=')[1];
