@@ -18,6 +18,6 @@ This package contains a set of utility functions and React hooks designed to sim
 
 A lightweight React library for managing access control lists (ACL) in your application.
 
-## [@piplup/rhf-core](https://github.com/sadik-malik/piplup-react-hook-form/tree/main/packages/rhf-core) & [@piplup/rhf-adapters](https://github.com/sadik-malik/piplup-react-hook-form/tree/main/packages/rhf-adapters)
+## [@piplup/rhf-core](https://github.com/piplupjs/piplup-react-hook-form/tree/main/packages/rhf-core) & [@piplup/rhf-adapters](https://github.com/piplupjs/piplup-react-hook-form/tree/main/packages/rhf-adapters)
 
-@piplup/rhf-core and @piplup/rhf-adapters have been moved to its own repository for improved maintainability and more frequent updates. Visit the new [repository](https://github.com/sadik-malik/piplup-react-hook-form).
+@piplup/rhf-core and @piplup/rhf-adapters have been moved to its own repository for improved maintainability and more frequent updates. Visit the new [repository](https://github.com/piplupjs/piplup-react-hook-form).

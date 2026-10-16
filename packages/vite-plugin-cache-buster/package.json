@@ -12,7 +12,7 @@
   ],
   "homepage": "https://www.piplupjs.com",
   "repository": {
-    "url": "git+https://github.com/sadik-malik/piplup.git",
+    "url": "git+https://github.com/piplupjs/piplup.git",
     "directory": "packages/vite-plugin-cache-buster"
   },
   "license": "MIT",

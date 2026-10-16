@@ -4,7 +4,7 @@
 
 ## ⚠️ Deprecation Warning
 
-> **Important Notice:** `useLocalStorage` hook has been moved to [@piplup/utils](https://github.com/sadik-malik/piplup/blob/main/packages/utils/README.md), While it may continue to work for existing projects, we recommend migrating to the new package.
+> **Important Notice:** `useLocalStorage` hook has been moved to [@piplup/utils](https://github.com/piplupjs/piplup/blob/main/packages/utils/README.md), While it may continue to work for existing projects, we recommend migrating to the new package.
 
 `useLocalStorage` - Use your browser localStorage as a reactive storage. It's a hook for reading values from the browser localStorage and listening to changes in it. Any updates made to localStorage using the `setItem` and `removeItem` helper functions will trigger a state update for the useLocalStorage hook.
 
