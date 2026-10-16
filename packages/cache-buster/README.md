@@ -74,18 +74,35 @@ export default App;
 - `error` (optional): React node to be displayed when the release check fails, for example when the device is offline, the `RELEASE` file is missing (non-2xx response), or the server returns an HTML page instead of a release ID. Default is `undefined`, which renders nothing. If you wrap your app in `CacheBuster`, pass the same content (or a fallback UI) to `error` so the app still renders when the check fails.
 - `verbose` (optional): Boolean indicating whether verbose logging should be enabled. Default is `false`.
 - `storageKey` (optional): local storage key for storing the unique release ID. Default is `RELEASE`
+- `url` (optional): URL of the release file. Relative URLs resolve against the current page. Default is `/RELEASE`. See [Serving from a sub-path](#serving-from-a-sub-path).
 - `children` (optional): The child components to render within the cache buster.
 
 ## How It Works
 
-`CacheBuster` fetches a release ID from `/RELEASE` at the root of your site (the file generated in your public folder) once per page load, and compares it with the ID stored in the browser's local storage:
+`CacheBuster` fetches a release ID from `/RELEASE` at the root of your site (the file generated in your public folder), or from `url` if you set it, once per page load, and compares it with the ID stored in the browser's local storage:
 
 - **First visit** (nothing stored yet): it stores the ID and renders the child components. The page was just loaded from the server, so there's nothing to reload.
 - **Same ID**: it renders the child components.
 - **Different ID** (a new release): it stores the new ID, keeps showing `loading`, and reloads the page once. After the reload the IDs match, so the app renders normally. If the server keeps returning a different ID, it reloads at most once per release ID per tab, then renders the child components instead of reloading again.
 - **Check failed**: it renders `error`.
 
-To handle releases yourself instead, use the `useReleaseStatus({ storageKey, enabled, verbose })` hook. It returns `null` while checking (or when disabled), then `'no-release'`, `'new-release'` or `'error'`, and doesn't reload the page.
+To handle releases yourself instead, use the `useReleaseStatus({ storageKey, enabled, url, verbose })` hook. It returns `null` while checking (or when disabled), then `'no-release'`, `'new-release'` or `'error'`, and doesn't reload the page.
+
+## Serving from a sub-path
+
+If your app is served from a sub-path such as `https://example.com/app/`, the release file is at `/app/RELEASE`, not `/RELEASE`. Pass its location with `url`:
+
+```jsx
+// Vite: BASE_URL is the `base` from your Vite config, e.g. '/app/'
+<CacheBuster url={`${import.meta.env.BASE_URL}RELEASE`}>
+  <YourApp />
+</CacheBuster>
+
+// Any setup
+<CacheBuster url="/app/RELEASE">
+  <YourApp />
+</CacheBuster>
+```
 
 ## Contributing
 

@@ -7,26 +7,33 @@ export type ReleaseStatus = 'error' | 'new-release' | 'no-release' | null;
 export type ReleaseStatusOptions = {
   enabled?: boolean;
   storageKey: string;
+  /**
+   * URL of the release file. Relative URLs resolve against the current page.
+   * @default '/RELEASE'
+   */
+  url?: string;
   verbose?: boolean;
 };
+
+const DEFAULT_URL = `/${FILENAME}`;
 
 let lastStatus: ReleaseStatus = null;
 let isReloading = false;
 
 async function getReleaseStatus(options: ReleaseStatusOptions): Promise<ReleaseStatus> {
-  const { enabled = true, storageKey, verbose = false } = options;
+  const { enabled = true, storageKey, url = DEFAULT_URL, verbose = false } = options;
 
   if (typeof window === 'undefined' || !enabled) {
     lastStatus = null;
     return lastStatus;
   }
 
-  const date = new Date();
-  const resourceURL = `/${FILENAME}?v=${date.getTime().toString()}`;
-
   const logger = createLogger(verbose);
 
   try {
+    // Add a timestamp so the browser and any CDN return the current file, not a cached one
+    const resourceURL = new URL(url, window.location.href);
+    resourceURL.searchParams.set('v', Date.now().toString());
     const response = await fetch(resourceURL);
     if (!response.ok) {
       throw new Error(`Unexpected response status ${response.status}`);
@@ -118,15 +125,15 @@ function checkReleaseOnce(options: ReleaseStatusOptions): Promise<ReleaseStatus>
 }
 
 export function useReleaseStatus(options: ReleaseStatusOptions) {
-  const { enabled, storageKey, verbose } = options;
+  const { enabled, storageKey, url, verbose } = options;
 
   const [isNewRelease, setIsNewRelease] = React.useState<ReleaseStatus>(lastStatus);
 
   React.useEffect(() => {
-    checkReleaseOnce({ enabled, storageKey, verbose }).then((newReleaseStatus) => {
+    checkReleaseOnce({ enabled, storageKey, url, verbose }).then((newReleaseStatus) => {
       setIsNewRelease(newReleaseStatus);
     });
-  }, [storageKey, verbose, enabled]);
+  }, [storageKey, url, verbose, enabled]);
 
   return isNewRelease;
 }
