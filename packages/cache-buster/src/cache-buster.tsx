@@ -8,6 +8,7 @@ export type CacheBusterProps = {
   error?: React.ReactNode;
   loading?: React.ReactNode;
   storageKey?: string;
+  url?: string;
   verbose?: boolean;
 };
 
@@ -18,12 +19,13 @@ function CacheBuster(props: CacheBusterProps): React.ReactElement {
     error,
     loading = null,
     storageKey = FILENAME,
+    url,
     verbose,
   } = props;
 
   const [isInitialized, setIsInitialized] = React.useState<boolean>(false);
   const [isReloadSkipped, setIsReloadSkipped] = React.useState<boolean>(false);
-  const releaseStatus = useReleaseStatus({ enabled, storageKey, verbose });
+  const releaseStatus = useReleaseStatus({ enabled, storageKey, url, verbose });
 
   React.useEffect(() => {
     if (!enabled || releaseStatus) {
