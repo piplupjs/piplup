@@ -78,10 +78,12 @@ jobs:
       - name: Build
         run: pnpm run build:packages
 
+      # A dry run does not write the new version, and `npm publish --dry-run` refuses an
+      # existing version, so a dry run only checks what would go into each tarball.
       - name: Publish
         run: |
           for pkg in $PACKAGES; do
-            (cd "packages/$pkg" && npm publish --access public ${{ inputs.dry-run && '--dry-run' || '' }})
+            (cd "packages/$pkg" && npm ${{ inputs.dry-run && 'pack --dry-run' || 'publish --access public' }})
           done
 
       - name: Push the release commit and tag
