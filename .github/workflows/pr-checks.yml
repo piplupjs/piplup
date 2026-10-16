@@ -1,0 +1,35 @@
+name: PR checks
+
+on:
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: pr-checks-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    # The pr-checks environment requires a maintainer to approve each run, so nothing runs
+    # automatically. Approve it from the PR's checks or the workflow run page.
+    environment: pr-checks
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Lint, type-check and build
+        run: pnpm nx run-many -t lint typecheck build
