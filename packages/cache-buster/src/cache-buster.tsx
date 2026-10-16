@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { FILENAME } from './constant';
-import { useReleaseStatus } from './release-status';
+import { reloadForNewRelease, useReleaseStatus } from './release-status';
 
 export type CacheBusterProps = {
   children?: React.ReactNode;
@@ -22,6 +22,7 @@ function CacheBuster(props: CacheBusterProps): React.ReactElement {
   } = props;
 
   const [isInitialized, setIsInitialized] = React.useState<boolean>(false);
+  const [isReloadSkipped, setIsReloadSkipped] = React.useState<boolean>(false);
   const releaseStatus = useReleaseStatus({ enabled, storageKey, verbose });
 
   React.useEffect(() => {
@@ -30,7 +31,14 @@ function CacheBuster(props: CacheBusterProps): React.ReactElement {
     }
   }, [releaseStatus, enabled]);
 
-  if (!isInitialized) {
+  React.useEffect(() => {
+    if (releaseStatus === 'new-release' && !reloadForNewRelease(storageKey, verbose)) {
+      setIsReloadSkipped(true);
+    }
+  }, [releaseStatus, storageKey, verbose]);
+
+  // Keep showing `loading` while the page reloads, so the old release doesn't flash.
+  if (!isInitialized || (releaseStatus === 'new-release' && !isReloadSkipped)) {
     // eslint-disable-next-line react/jsx-no-useless-fragment
     return <>{loading}</>;
   }

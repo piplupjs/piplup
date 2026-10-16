@@ -78,7 +78,14 @@ export default App;
 
 ## How It Works
 
-`CacheBuster` fetches a release ID from `/RELEASE` at the root of your site (the file generated in your public folder). It then compares this ID with the one stored in the browser's local storage. If a new release is detected, it reloads the page. Otherwise, it proceeds to render the child components.
+`CacheBuster` fetches a release ID from `/RELEASE` at the root of your site (the file generated in your public folder) once per page load, and compares it with the ID stored in the browser's local storage:
+
+- **First visit** (nothing stored yet): it stores the ID and renders the child components. The page was just loaded from the server, so there's nothing to reload.
+- **Same ID**: it renders the child components.
+- **Different ID** (a new release): it stores the new ID, keeps showing `loading`, and reloads the page once. After the reload the IDs match, so the app renders normally. If the server keeps returning a different ID, it reloads at most once per release ID per tab, then renders the child components instead of reloading again.
+- **Check failed**: it renders `error`.
+
+To handle releases yourself instead, use the `useReleaseStatus({ storageKey, enabled, verbose })` hook. It returns `null` while checking (or when disabled), then `'no-release'`, `'new-release'` or `'error'`, and doesn't reload the page.
 
 ## Contributing
 
