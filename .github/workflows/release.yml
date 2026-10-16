@@ -1,0 +1,98 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: Version bump (all packages share one version)
+        type: choice
+        options: [patch, minor, major]
+        default: patch
+      dry-run:
+        description: Dry run (show the version and changelog, build, but do not publish or push)
+        type: boolean
+        default: false
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+permissions:
+  contents: write # push the release commit and tag, create the GitHub release
+  id-token: write # npm trusted publishing (OIDC) and provenance
+
+env:
+  # Publish in dependency order so dependents never point at an unpublished version
+  PACKAGES: >-
+    use-event-listener
+    use-local-storage
+    utils
+    react-acl
+    cache-buster
+    vite-plugin-cache-buster
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # nx release reads commits and tags to build the changelog
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+
+      # Trusted publishing needs npm 11.5.1 or later
+      - run: npm install -g npm@latest
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Version and changelog
+        run: pnpm nx release ${{ inputs.bump }} --skip-publish --yes ${{ inputs.dry-run && '--dry-run' || '' }}
+
+      - name: Check the version is not on npm yet
+        if: ${{ !inputs.dry-run }}
+        run: |
+          for pkg in $PACKAGES; do
+            name=$(node -p "require('./packages/$pkg/package.json').name")
+            version=$(node -p "require('./packages/$pkg/package.json').version")
+            if npm view "$name@$version" version 2>/dev/null | grep -q .; then
+              echo "::error::$name@$version is already on npm"
+              exit 1
+            fi
+          done
+
+      - name: Build
+        run: pnpm run build:packages
+
+      - name: Publish
+        run: |
+          for pkg in $PACKAGES; do
+            (cd "packages/$pkg" && npm publish --access public ${{ inputs.dry-run && '--dry-run' || '' }})
+          done
+
+      - name: Push the release commit and tag
+        if: ${{ !inputs.dry-run }}
+        run: |
+          tag="v$(node -p "require('./packages/utils/package.json').version")"
+          git push origin HEAD "refs/tags/$tag"
+          echo "TAG=$tag" >> "$GITHUB_ENV"
+
+      - name: Create GitHub release
+        if: ${{ !inputs.dry-run }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$TAG" --title "$TAG" --generate-notes --verify-tag
