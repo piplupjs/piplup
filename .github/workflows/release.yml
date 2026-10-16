@@ -61,7 +61,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
       - name: Version and changelog
-        run: pnpm nx release ${{ inputs.bump }} --skip-publish --yes ${{ inputs.dry-run && '--dry-run' || '' }}
+        run: pnpm nx release ${{ inputs.bump }} --skip-publish ${{ inputs.dry-run && '--dry-run' || '' }}
 
       - name: Check the version is not on npm yet
         if: ${{ !inputs.dry-run }}
