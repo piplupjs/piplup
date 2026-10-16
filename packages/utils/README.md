@@ -25,17 +25,17 @@ pnpm add @piplup/utils
 ## Table of Contents
 
 - [Helpers](#helpers)
-  - [compact](https://github.com/sadik-malik/piplup/blob/main/packages/utils/src/helpers/compact.ts)
-  - [execSequentially](https://github.com/sadik-malik/piplup/blob/main/packages/utils/src/helpers/exec-sequentially.ts)
-  - [hasOwnProperty](https://github.com/sadik-malik/piplup/blob/main/packages/utils/src/helpers/has-own-property.ts)
-  - [setRef](https://github.com/sadik-malik/piplup/blob/main/packages/utils/src/helpers/set-ref.ts)
-  - [forkRef](https://github.com/sadik-malik/piplup/blob/main/packages/utils/src/helpers/fork-ref.ts)
+  - [compact](https://github.com/piplupjs/piplup/blob/main/packages/utils/src/helpers/compact.ts)
+  - [execSequentially](https://github.com/piplupjs/piplup/blob/main/packages/utils/src/helpers/exec-sequentially.ts)
+  - [hasOwnProperty](https://github.com/piplupjs/piplup/blob/main/packages/utils/src/helpers/has-own-property.ts)
+  - [setRef](https://github.com/piplupjs/piplup/blob/main/packages/utils/src/helpers/set-ref.ts)
+  - [forkRef](https://github.com/piplupjs/piplup/blob/main/packages/utils/src/helpers/fork-ref.ts)
 - [Hooks](#hooks)
-  - [useEventCallback](https://github.com/sadik-malik/piplup/blob/main/packages/utils/src/hooks/use-event-callback.ts)
-  - [useEventListener](https://github.com/sadik-malik/piplup/blob/main/packages/utils/src/hooks/use-event-listener.ts)
-  - [useForkRef](https://github.com/sadik-malik/piplup/blob/main/packages/utils/src/hooks/use-fork-ref.ts)
-  - [useIsomorphicEffect](https://github.com/sadik-malik/piplup/blob/main/packages/utils/src/hooks/use-isomorphic-effect.ts)
-  - [useLocalStorage](https://github.com/sadik-malik/piplup/blob/main/packages/utils/src/hooks/use-local-storage.ts)
+  - [useEventCallback](https://github.com/piplupjs/piplup/blob/main/packages/utils/src/hooks/use-event-callback.ts)
+  - [useEventListener](https://github.com/piplupjs/piplup/blob/main/packages/utils/src/hooks/use-event-listener.ts)
+  - [useForkRef](https://github.com/piplupjs/piplup/blob/main/packages/utils/src/hooks/use-fork-ref.ts)
+  - [useIsomorphicEffect](https://github.com/piplupjs/piplup/blob/main/packages/utils/src/hooks/use-isomorphic-effect.ts)
+  - [useLocalStorage](https://github.com/piplupjs/piplup/blob/main/packages/utils/src/hooks/use-local-storage.ts)
 
 ## Helpers
 
