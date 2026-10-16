@@ -1,3 +1,20 @@
+## 3.2.5 (2026-10-16)
+
+### 🚀 Features
+
+- **cache-buster:** reload the page when a new release is detected ([#4](https://github.com/piplupjs/piplup/issues/4))
+- **cache-buster:** add url option for apps served from a sub-path ([1f44160](https://github.com/piplupjs/piplup/commit/1f44160))
+
+### 🩹 Fixes
+
+- **cache-buster:** correct --publicDir in the CLI error message ([#6](https://github.com/piplupjs/piplup/issues/6))
+- **cache-buster:** treat error responses and HTML as a failed release check ([#5](https://github.com/piplupjs/piplup/issues/5))
+- **utils:** call Object.hasOwn with the object as its first argument ([#7](https://github.com/piplupjs/piplup/issues/7))
+
+### ❤️ Thank You
+
+- sadik-malik
+
 ## 3.2.4 (2025-05-27)
 
 This was a version bump only, there were no code changes.
