@@ -1,8 +1,0 @@
-{
-  "name": "@piplup/vite-plugin-cache-buster",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/vite-plugin-cache-buster/src",
-  "projectType": "library",
-  "tags": ["scope:packages"],
-  "targets": {}
-}

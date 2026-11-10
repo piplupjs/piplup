@@ -1,23 +1,31 @@
 # @piplup
 
-Welcome to @piplup! This repository contains a collection of useful libraries empowering Your React apps with essential libraries and tools.
+Welcome to @piplup! A collection of open-source React libraries that handle the boilerplate React
+developers keep writing.
 
-## [@piplup/cache-buster](./packages/cache-buster/README.md)
+Each library now lives in its own repository, so it versions and releases on its own schedule.
+Documentation for all of them is at [piplupjs.com](https://www.piplupjs.com/), built from
+[piplupjs/piplup-docs](https://github.com/piplupjs/piplup-docs).
 
-React library that helps in busting cache by checking for updates and reloading the page when a new release is detected.
+## Where the packages live
 
-## [@piplup/vite-plugin-cache-buster](./packages/vite-plugin-cache-buster/README.md)
+| Package | Repository |
+| --- | --- |
+| [`@piplup/cache-buster`](https://www.npmjs.com/package/@piplup/cache-buster) and [`@piplup/vite-plugin-cache-buster`](https://www.npmjs.com/package/@piplup/vite-plugin-cache-buster) | [piplupjs/piplup-cache-buster](https://github.com/piplupjs/piplup-cache-buster) |
+| [`@piplup/react-acl`](https://www.npmjs.com/package/@piplup/react-acl) | [piplupjs/piplup-react-acl](https://github.com/piplupjs/piplup-react-acl) |
+| [`@piplup/utils`](https://www.npmjs.com/package/@piplup/utils) | [piplupjs/piplup-utils](https://github.com/piplupjs/piplup-utils) |
+| [`@piplup/rhf-core`](https://www.npmjs.com/package/@piplup/rhf-core) and [`@piplup/rhf-adapters`](https://www.npmjs.com/package/@piplup/rhf-adapters) | [piplupjs/piplup-react-hook-form](https://github.com/piplupjs/piplup-react-hook-form) |
 
-A Vite plugin to automatically run cache busting during the build process using `@piplup/cache-buster`.
+## Still here
 
-## [@piplup/utils](./packages/utils/README.md)
+Two deprecated hook packages, kept only so existing installs keep resolving. Both have moved into
+[`@piplup/utils`](https://github.com/piplupjs/piplup-utils) — use that instead.
 
-This package contains a set of utility functions and React hooks designed to simplify common tasks and enhance your development experience.
+- [`@piplup/use-event-listener`](./packages/use-event-listener/README.md) → `useEventListener` from
+  `@piplup/utils`
+- [`@piplup/use-local-storage`](./packages/use-local-storage/README.md) → `useLocalStorage` from
+  `@piplup/utils`
 
-## [@piplup/react-acl](./packages/react-acl/README.md)
-
-A lightweight React library for managing access control lists (ACL) in your application.
-
-## [@piplup/rhf-core](https://github.com/piplupjs/piplup-react-hook-form/tree/main/packages/rhf-core) & [@piplup/rhf-adapters](https://github.com/piplupjs/piplup-react-hook-form/tree/main/packages/rhf-adapters)
-
-@piplup/rhf-core and @piplup/rhf-adapters have been moved to its own repository for improved maintainability and more frequent updates. Visit the new [repository](https://github.com/piplupjs/piplup-react-hook-form).
+Releases before 3.2.5 for every package above are in this repository's
+[CHANGELOG](./CHANGELOG.md); later ones are in the changelog of whichever repository now owns the
+package.
