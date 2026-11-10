@@ -8,15 +8,9 @@ import { hideBin } from 'yargs/helpers';
 
 const { prompt } = enquirer;
 
-const patterns = [
-  './packages/*/dist',
-  './apps/*/dist',
-  './apps/storybook-host/storybook-static',
-  './build-storybook.log',
-  '**/vite.config.*.timestamp*',
-];
+const patterns = ['./packages/*/dist', '**/vite.config.*.timestamp*'];
 
-const nodeModules = ['./packages/*/node_modules', './apps/*/node_modules'];
+const nodeModules = ['./packages/*/node_modules'];
 
 const defaultValues = {
   deleteNodeModules: false,

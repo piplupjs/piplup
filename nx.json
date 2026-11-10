@@ -26,7 +26,10 @@
     }
   },
   "namedInputs": {
-    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "default": [
+      "{projectRoot}/**/*",
+      "sharedGlobals"
+    ],
     "production": [
       "default",
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
@@ -47,15 +50,6 @@
       "plugin": "@nx/eslint/plugin"
     },
     {
-      "options": {
-        "buildStorybookTargetName": "build-storybook",
-        "serveStorybookTargetName": "storybook",
-        "staticStorybookTargetName": "static-storybook",
-        "testStorybookTargetName": "test-storybook"
-      },
-      "plugin": "@nx/storybook/plugin"
-    },
-    {
       "plugin": "@nx/vite/plugin",
       "options": {
         "buildTargetName": "build",
@@ -71,15 +65,24 @@
     "changelog": {
       "workspaceChangelog": true
     },
-    "projects": ["*", "!storybook-host"],
+    "projects": [
+      "*"
+    ],
     "projectsRelationship": "fixed",
     "version": {
       "conventionalCommits": true
     }
   },
   "targetDefaults": {
+    "typecheck": {
+      "dependsOn": [
+        "^build"
+      ]
+    },
     "nx-release-publish": {
-      "dependsOn": ["^build"],
+      "dependsOn": [
+        "^build"
+      ],
       "options": {
         "packageRoot": "{projectRoot}/dist"
       }

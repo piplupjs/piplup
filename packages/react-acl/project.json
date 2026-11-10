@@ -1,8 +1,0 @@
-{
-  "name": "@piplup/react-acl",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/react-acl/src",
-  "projectType": "library",
-  "tags": ["scope:packages"],
-  "targets": {}
-}

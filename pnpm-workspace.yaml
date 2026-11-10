@@ -1,12 +1,10 @@
 packages:
   - 'packages/*'
-  - 'apps/*'
 
 linkWorkspacePackages: true
 preferWorkspacePackages: true
 
 allowBuilds:
   '@swc/core': true
-  core-js: false
   esbuild: true
   nx: true

@@ -26,10 +26,6 @@ env:
   PACKAGES: >-
     use-event-listener
     use-local-storage
-    utils
-    react-acl
-    cache-buster
-    vite-plugin-cache-buster
 
 jobs:
   release:
@@ -89,7 +85,7 @@ jobs:
       - name: Push the release commit and tag
         if: ${{ !inputs.dry-run }}
         run: |
-          tag="v$(node -p "require('./packages/utils/package.json').version")"
+          tag="v$(node -p "require('./packages/use-event-listener/package.json').version")"
           git push origin HEAD "refs/tags/$tag"
           echo "TAG=$tag" >> "$GITHUB_ENV"
 

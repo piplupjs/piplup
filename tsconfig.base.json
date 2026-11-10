@@ -15,13 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@piplup/cache-buster": ["packages/cache-buster/src/index.ts"],
-      "@piplup/react-acl": ["packages/react-acl/src/index.ts"],
-      "@piplup/storybook-host": ["apps/storybook-host/src/index.ts"],
       "@piplup/use-event-listener": ["packages/use-event-listener/src/index.ts"],
-      "@piplup/use-local-storage": ["packages/use-local-storage/src/index.ts"],
-      "@piplup/utils": ["packages/utils/src/index.ts"],
-      "@piplup/vite-plugin-cache-buster": ["packages/vite-plugin-cache-buster/src/index.ts"]
+      "@piplup/use-local-storage": ["packages/use-local-storage/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
